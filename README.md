@@ -25,7 +25,7 @@ Le projet suit une architecture séparée (Headless) :
 
 * **Frontend :** Application Vue.js qui communique uniquement avec notre API Backend.
 * **Backend :** API RESTful développée avec Spring Boot. Elle agit comme un orchestrateur entre le client, la base de données et l'API externe Steam.
-* **Base de Données :** PostgreSQL pour la persistance des données relationnelles.
+* **Base de Données :** PostgreSQL conteneurisé via **Docker**. Cela garantit un environnement de développement isolé et reproductible.
 
 ## Stack Technique
 
@@ -43,9 +43,10 @@ Le projet suit une architecture séparée (Headless) :
 * **State Management :** Pinia
 * **Client HTTP :** Axios
 
-**Données & Externe**
+**DevOps & Données**
 
-* **Base de données :** PostgreSQL
+* **Base de données :** PostgreSQL 15
+* **Conteneurisation :** Docker & Docker Compose
 * **API Tierce :** Steam Web API & Steam Storefront API
 
 ## Installation et Démarrage
@@ -54,14 +55,26 @@ Le projet suit une architecture séparée (Headless) :
 
 * Java 21 (JDK)
 * Node.js et npm
-* PostgreSQL installé et en cours d'exécution
+* Docker et Docker Compose installés sur la machine
 
-### 1. Configuration de la Base de Données
+### 1. Démarrage de la Base de Données (Docker)
 
-Créez une base de données locale nommée `gaming_chair_list` dans PostgreSQL.
-Configurez vos identifiants dans le fichier `src/main/resources/application.properties` du backend.
+Le projet utilise Docker Compose pour lancer une instance PostgreSQL pré-configurée. Assurez-vous que le port `5432` est libre sur votre machine.
 
-### 2. Démarrage du Backend (Spring Boot)
+À la racine du projet, lancez :
+
+```bash
+docker compose up -d
+
+```
+
+Cela va créer et démarrer le conteneur `gaming_chair_db` avec la base de données `gaming_chair_list`.
+
+*Note : Les identifiants par défaut (définis dans `docker-compose.yml`) sont `postgres` / `password123`.*
+
+### 2. Configuration et Démarrage du Backend
+
+Assurez-vous que le fichier `src/main/resources/application.properties` correspond à la configuration Docker (port 5432).
 
 ```bash
 cd backend
@@ -70,8 +83,11 @@ cd backend
 ```
 
 L'API sera accessible sur `http://localhost:8080`.
+*La première exécution créera automatiquement les tables nécessaires dans la base de données.*
 
 ### 3. Démarrage du Frontend (Vue.js)
+
+Dans un nouveau terminal :
 
 ```bash
 cd frontend
@@ -81,6 +97,11 @@ npm run dev
 ```
 
 L'application sera accessible sur `http://localhost:5173` (ou le port indiqué par Vite).
+
+### Commandes Utiles
+
+* **Arrêter la base de données :** `docker compose stop`
+* **Supprimer la base de données (Reset complet) :** `docker compose down -v`
 
 ## Auteurs
 
