@@ -1,7 +1,3 @@
-C'est noté. Voici la version finale et complète de ton fichier `README.md`, mise à jour avec ton nom et la version Java 21, prête à être intégrée à ton dépôt.
-
----
-
 # Gaming Chair List
 
 Une plateforme sociale de découverte et de critique de jeux vidéo, alimentée par l'API Steam.
