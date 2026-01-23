@@ -12,27 +12,25 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class AppSecurityConfig {
 
-    public SecurityConfig() {
-        System.out.println("security");
+    public AppSecurityConfig() {
+        System.out.println(" LE FICHIER DE SÉCURITÉ EST CHARGÉ ! ");
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // 1. desac problème api
+                // Désactive CSRF
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // 2. Configurer les règles d'accès
+                // Autorise l'accès sans login à /api/auth/**
                 .authorizeHttpRequests(auth -> auth
-
                         .requestMatchers("/api/auth/**").permitAll()
-
                         .anyRequest().authenticated()
                 )
 
-                // 3. Gestion de session Stateless
+                // Pas de session côté serveur (car on utilise JWT)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
@@ -40,7 +38,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Ce Bean est utilisé par UserService pour chiffrer les mots de passe
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
