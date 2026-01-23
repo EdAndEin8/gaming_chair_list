@@ -25,14 +25,14 @@ public class GameController {
         this.userRepository = userRepository;
     }
 
-    // 1. Récupérer MES jeux (uniquement ceux de l'utilisateur connecté)
+    // 1. Récupérer de mes jeux (
     @GetMapping
     public List<Game> getMyGames() {
         User currentUser = getCurrentUser();
         return gameRepository.findByUserId(currentUser.getId());
     }
 
-    // 2. Ajouter un jeu à MA liste
+    // ajouter un jeu à MA liste
     @PostMapping
     public Game addGame(@RequestBody Game game) {
         User currentUser = getCurrentUser();
@@ -48,16 +48,13 @@ public class GameController {
         return gameRepository.save(game);
     }
 
-    // 3. Supprimer un jeu
+    //  Supprimer un jeu
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGame(@PathVariable Long id) {
-        // On vérifie que le jeu appartient bien à l'utilisateur avant de supprimer !
-        // (Pour l'instant on fait simple, on supprime direct)
         gameRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    // --- Méthode utilitaire pour savoir QUI est connecté ---
     private User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName(); // Le pseudo stocké dans le JWT

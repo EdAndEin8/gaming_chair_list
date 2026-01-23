@@ -16,7 +16,7 @@ public class Game {
 
     private String title;
 
-    private String imageUrl; // Pour afficher l'image du jeu plus tard
+    private String imageUrl;
 
     private String status; // "A FAIRE", "EN COURS", "TERMINÉ"
 

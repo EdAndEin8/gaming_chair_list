@@ -5,10 +5,10 @@ import { useAuthStore } from './stores/auth'
 const authStore = useAuthStore()
 const router = useRouter()
 
-// Fonction pour se déconnecter
+
 const handleLogout = () => {
   authStore.logout()
-  router.push('/login') // On renvoie vers la page de login
+  router.push('/login')
 }
 </script>
 
@@ -41,7 +41,7 @@ const handleLogout = () => {
 </template>
 
 <style scoped>
-/* Un peu de style pour que ça ressemble à un vrai site */
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -73,10 +73,10 @@ const handleLogout = () => {
 }
 
 .nav-item:hover {
-  color: #42b883; /* Vert Vue.js */
+  color: #42b883;
 }
 
-/* Style spécial pour le lien actif (géré par Vue Router) */
+
 .router-link-active {
   color: #42b883;
 }

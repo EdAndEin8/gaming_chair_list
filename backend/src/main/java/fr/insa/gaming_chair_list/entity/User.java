@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-@Data // Génère Getters, Setters, ToString, Equals, HashCode
+@Data // génère Getters, Setters, ToString
 @NoArgsConstructor // Génère le constructeur vide
-@AllArgsConstructor // Génère le constructeur avec tous les arguments
+@AllArgsConstructor // génère le constructeur avec tous les arguments
 public class User {
 
     @Id

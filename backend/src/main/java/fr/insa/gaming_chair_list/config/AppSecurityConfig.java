@@ -21,16 +21,16 @@ public class AppSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Désactive CSRF
+                // Désactive CSRF probleme de connection
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // Autorise l'accès sans login à /api/auth/**
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
 
-                // Pas de session côté serveur (car on utilise JWT)
+
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );

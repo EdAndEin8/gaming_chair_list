@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
-    // Trouver tous les jeux d'un utilisateur spécifique via son ID
     List<Game> findByUserId(Long userId);
 }
